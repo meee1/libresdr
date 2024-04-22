@@ -59,6 +59,8 @@ jobs:
           
           git diff --no-index uboot/configs/zynq_libre_defconfig u-boot-xlnx/configs/zynq_pluto_defconfig || true
           git diff --no-index uboot/arch/arm/dts/zynq-libre-sdr.dts u-boot-xlnx/arch/arm/dts/zynq-pluto-sdr.dts || true
+
+          touch buildroot/board/libre/msd/LICENSE.html
           
           # Change Vivado path if you installed it to a different folder.
           export VIVADO_SETTINGS=/opt/Xilinx/Vivado/2022.2/settings64.sh
