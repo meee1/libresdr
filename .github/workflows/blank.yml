@@ -25,18 +25,29 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2.11
+        with:
+          key: ccache-${{ runner.os }}
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: sudo apt install -y libgmp-dev libmpc-dev git build-essential fakeroot libncurses5-dev libssl-dev ccache dfu-util u-boot-tools device-tree-compiler mtools bc python3 cpio zip unzip rsync file wget flex bison language-pack-en libtinfo5 x11-utils xvfb dbus-x11 libswt-glx-gtk-4-jni libgtk2.0-0
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
+        env:
+          SKIP_LEGAL: 1
         run: |
           set -e -x
           # Clone original v0.38 firware for PlutoSDR
           git clone --depth 1 --branch v0.38 --recursive https://github.com/analogdevicesinc/plutosdr-fw.git plutosdr-fw_0.38_libre
           # Apply patch for LibreSDR
           ./apply.sh
+
+          export BR2_USE_CCACHE=1
+          export BR2_CCACHE_DIR=$(pwd)/.ccache
+          
           cd plutosdr-fw_0.38_libre
 
           git diff --no-index buildroot/board/libre buildroot/board/pluto || true
@@ -54,3 +65,8 @@ jobs:
           export TARGET=libre
           make
           #make sdimg
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.3.2
+        with:
+          path: plutosdr-fw_0.38_libre/build
