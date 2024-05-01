@@ -40,36 +40,36 @@ jobs:
           # Apply patch for LibreSDR
           ./apply.sh
 
-      - name: Run a multi-line script
+      - name: Run a multi-line script buildroot
         env:
           SKIP_LEGAL: 1
         run: |
           set -e -x
           cd plutosdr-fw_0.38_libre
-          git diff --no-index buildroot/board/libre buildroot/board/pluto || true
+          git diff --no-index buildroot/board/pluto buildroot/board/libre  || true
 
-      - name: Run a multi-line script
+      - name: Run a multi-line script hdl
         env:
           SKIP_LEGAL: 1
         run: |
           set -e -x
           cd plutosdr-fw_0.38_libre
-          git diff --no-index hdl/projects/libre hdl/projects/pluto || true
+          git diff --no-index hdl/projects/pluto hdl/projects/libre  || true
 
-      - name: Run a multi-line script
+      - name: Run a multi-line script linux
         env:
           SKIP_LEGAL: 1
         run: |
           set -e -x
           cd plutosdr-fw_0.38_libre
-          git diff --no-index linux/arch/arm/boot/dts/zynq-libre.dtsi linux/arch/arm/boot/dts/zynq-pluto-sdr.dtsi || true
-          git diff --no-index linux/arch/arm/configs/zynq_libre_defconfig linux/arch/arm/configs/zynq_pluto_defconfig || true
+          git diff --no-index linux/arch/arm/boot/dts/zynq-pluto-sdr.dtsi linux/arch/arm/boot/dts/zynq-libre.dtsi  || true
+          git diff --no-index linux/arch/arm/configs/zynq_pluto_defconfig linux/arch/arm/configs/zynq_libre_defconfig  || true
          
-      - name: Run a multi-line script
+      - name: Run a multi-line script u-boot-xlnx
         env:
           SKIP_LEGAL: 1
         run: |
           set -e -x
           cd plutosdr-fw_0.38_libre
-          git diff --no-index uboot/configs/zynq_libre_defconfig u-boot-xlnx/configs/zynq_pluto_defconfig || true
-          git diff --no-index uboot/arch/arm/dts/zynq-libre-sdr.dts u-boot-xlnx/arch/arm/dts/zynq-pluto-sdr.dts || true
+          git diff --no-index u-boot-xlnx/configs/zynq_pluto_defconfig uboot/configs/zynq_libre_defconfig  || true
+          git diff --no-index u-boot-xlnx/arch/arm/dts/zynq-pluto-sdr.dts uboot/arch/arm/dts/zynq-libre-sdr.dts  || true
