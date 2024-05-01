@@ -39,18 +39,37 @@ jobs:
           git clone --depth 1 --branch v0.38 --recursive https://github.com/analogdevicesinc/plutosdr-fw.git plutosdr-fw_0.38_libre
           # Apply patch for LibreSDR
           ./apply.sh
-          
-          cd plutosdr-fw_0.38_libre
 
+      - name: Run a multi-line script
+        env:
+          SKIP_LEGAL: 1
+        run: |
+          set -e -x
+          cd plutosdr-fw_0.38_libre
           git diff --no-index buildroot/board/libre buildroot/board/pluto || true
-          
+
+      - name: Run a multi-line script
+        env:
+          SKIP_LEGAL: 1
+        run: |
+          set -e -x
+          cd plutosdr-fw_0.38_libre
           git diff --no-index hdl/projects/libre hdl/projects/pluto || true
-          
+
+      - name: Run a multi-line script
+        env:
+          SKIP_LEGAL: 1
+        run: |
+          set -e -x
+          cd plutosdr-fw_0.38_libre
           git diff --no-index linux/arch/arm/boot/dts/zynq-libre.dtsi linux/arch/arm/boot/dts/zynq-pluto-sdr.dtsi || true
           git diff --no-index linux/arch/arm/configs/zynq_libre_defconfig linux/arch/arm/configs/zynq_pluto_defconfig || true
-          
+         
+      - name: Run a multi-line script
+        env:
+          SKIP_LEGAL: 1
+        run: |
+          set -e -x
+          cd plutosdr-fw_0.38_libre
           git diff --no-index uboot/configs/zynq_libre_defconfig u-boot-xlnx/configs/zynq_pluto_defconfig || true
           git diff --no-index uboot/arch/arm/dts/zynq-libre-sdr.dts u-boot-xlnx/arch/arm/dts/zynq-pluto-sdr.dts || true
-
-
-
