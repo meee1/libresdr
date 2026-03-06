@@ -24,6 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        with: 
+          submodules: recursive
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -35,8 +37,6 @@ jobs:
           SKIP_LEGAL: 1
         run: |
           set -e -x
-          # Clone original v0.38 firware for PlutoSDR
-          git clone --depth 1 --branch v0.38 --recursive https://github.com/analogdevicesinc/plutosdr-fw.git plutosdr-fw_0.38_libre
           # Apply patch for LibreSDR
           ./apply.sh
 
