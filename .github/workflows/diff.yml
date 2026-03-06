@@ -37,6 +37,8 @@ jobs:
           SKIP_LEGAL: 1
         run: |
           set -e -x
+          wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.4-2ubuntu0.1_amd64.deb
+          sudo dpkg -i libtinfo5_6.4-2ubuntu0.1_amd64.deb
           # Apply patch for LibreSDR
           ./apply.sh
 

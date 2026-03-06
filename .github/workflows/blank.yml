@@ -34,7 +34,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: sudo apt install -y libgmp-dev libmpc-dev git build-essential fakeroot libncurses5-dev libssl-dev ccache dfu-util u-boot-tools device-tree-compiler mtools bc python3 cpio zip unzip rsync file wget flex bison language-pack-en libtinfo5 x11-utils xvfb dbus-x11 libswt-glx-gtk-4-jni libgtk2.0-0
+        run: sudo apt install -y libgmp-dev libmpc-dev git build-essential fakeroot libncurses5-dev libssl-dev ccache dfu-util u-boot-tools device-tree-compiler mtools bc python3 cpio zip unzip rsync file wget flex bison language-pack-en x11-utils xvfb dbus-x11 libswt-glx-gtk-4-jni libgtk2.0-0
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
@@ -42,6 +42,8 @@ jobs:
           SKIP_LEGAL: 1
         run: |
           set -e -x
+          wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.4-2ubuntu0.1_amd64.deb
+          sudo dpkg -i libtinfo5_6.4-2ubuntu0.1_amd64.deb
           # Apply patch for LibreSDR
           ./apply.sh
 
