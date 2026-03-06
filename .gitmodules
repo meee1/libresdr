@@ -1,0 +1,3 @@
+[submodule "plutosdr-fw_0.38_libre"]
+	path = plutosdr-fw_0.38_libre
+	url = https://github.com/analogdevicesinc/plutosdr-fw.git
